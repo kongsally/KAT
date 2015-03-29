@@ -57,7 +57,7 @@ function logIn() {
 function showResults() {
 	console.log(sessions);
 	for (var i = 0; i < sessions.length; i++) {
-		$("#sessions").append("<div class = 'session' id = 'session" + 
+		$("#sessions").append("<div class = 'session one-half column' id = 'session" + 
 			i + "'></div>")
 		$("#session" + i).append("<h5> Level: " + 
 			sessions[i].attributes.level + "</h5>");
