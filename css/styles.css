@@ -1,13 +1,16 @@
 body, html {
+    background-image: url("../data/bg.jpg");
+    background-size: cover;
     background-color: #1C3971;
+    background-repeat: no-repeat;
     padding: 0;
     margin: 0;
 }
 
 #main {
     text-align: center;
-    padding: 10%;
-    padding-top: 20%;
+    padding: 5%;
+    padding-bottom: 2%;
 }
 
 h1 {
@@ -22,7 +25,7 @@ h1 {
 h4 {
     margin: 0;
     font-weight: 300;
-    color: #718BBE;
+    color: #9CAFD4;
     text-align: center;
 }
 
@@ -36,18 +39,78 @@ h4 {
 
 ul {
     margin: 0;
-    paddin
 }
 
 li {
     display: inline;
     margin-right: 2em;
     font-weight: 300;
-    color: #718BBE;
+    color: #fefefe;
 }
 
 a {
     text-decoration: none;
     font-weight: 300;
-    color: #718BBE;
+    color: #fefefe;
+    outline: none;
 }
+
+
+a:visited {
+    color: #fefefe;
+}
+
+a:hover {
+   color: #9CAFD4;
+}
+
+#form {
+    color: #9CAFD4;
+    text-align: center;
+    padding: 1em;
+    font-weight: 300;
+}
+
+#signUpButt, #logInButt {
+    background: none;
+    border: solid 1px #9CAFD4;
+    color: #9CAFD4;
+    font-weight: 200;
+}
+
+#signUpButt:hover, #logInButt:hover {
+    background-color: #9CAFD4;
+    color: #1C3971;
+    border: solid 1px #9CAFD4;
+    font-weight: 500;
+}
+
+input {
+    text-align: left;
+    color: #1C3971;
+}
+
+#sessions {
+    background-color: rgba(0,0,0,0.4);
+    font-weight: 200;
+    padding: 1em;
+    margin-bottom: 2%;
+}
+
+.session {
+    background-color: rgba(0,0,0,0.4);
+    font-weight: 200;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+h5 {
+    font-size: 1em;
+    font-weight: 200;
+    color: #9CAFD4;
+}
+
+#formLabels{
+    text-align: right;
+}
+

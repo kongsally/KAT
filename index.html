@@ -3,25 +3,36 @@
   <meta charset="utf-8">
 
   <title>KAT</title>
-  <meta name="description" content="My Parse App">
+  <meta name="description" content="KAT">
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/styles.css">
+
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/parse.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+   <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/styles.css">
+
 </head>
 
 <body>
 
-  <div id = "nav">
-    <ul>
-    <li> <a href = "#">Log In</a></li>
-    <li> <a href = "#">Downloads</a></li>
-    <li> <a href = "#">About Us</a></li>
-  </div>
   <div id = "main">  
   <h1> KAT </h1>
   <h4> Keyboard Alternative Technology </h4>
+  </div>
+
+  <div class = "row">
+    <div class = "six columns offset-by-three" id = "sessions">
+      <div id = "form">
+      Name:<br><input id = "userName"type="text" name="fname" value = ""><br>
+      Password:<br> <input id = "password" type="text" name="fname" value = ""><br>
+      Email:<br> <input id = "email" type="text" name="fname" value = ""><br>
+      <button id = "signUpButt" onclick="signUp();">Sign Up</button>
+      <button id = "logInButt" onclick="logIn();">Log In</button>
+      </div>
+    </div>
   </div>
 
 </body>
