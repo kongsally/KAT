@@ -36,6 +36,7 @@ function logIn() {
 		    query.find({
 		    	success : function(results) {
 			     sessions = results;
+			     showDownloadLink();
 			     showResults();
 			    }
 		    });
@@ -52,6 +53,12 @@ function logIn() {
 	    // The login failed. Check error to see why.
 	  }
 	});
+}
+
+function showDownloadLink() {
+	$("#sessions").append("<br><a href='KATGame_Mac.zip' class='button' download>Download Mac OSX Desktop Game</a>");
+	$("#sessions").append("<a href='KATGame_Windows.zip' class='button' download>Download Windows Desktop Game</a><br>");
+
 }
 
 function showResults() {

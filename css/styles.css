@@ -75,18 +75,19 @@ a:hover {
     font-weight: 300;
 }
 
-#signUpButt, #logInButt {
+a.button, #signUpButt, #logInButt {
     background: none;
-    border: solid 1px #9CAFD4;
-    color: #9CAFD4;
+    border: solid 1px #eeeeff;
+    color: #eeeeff;
     font-weight: 200;
+    margin-left: 0.5em;
 }
 
-#signUpButt:hover, #logInButt:hover {
-    background-color: #9CAFD4;
+a.button:hover, #signUpButt:hover, #logInButt:hover {
+    background-color: #eeeeff;
     color: #1C3971;
-    border: solid 1px #9CAFD4;
-    font-weight: 500;
+    border: solid 1px #eeeeff;
+    font-weight: 700;
 }
 
 input {
