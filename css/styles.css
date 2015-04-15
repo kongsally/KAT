@@ -123,3 +123,16 @@ h5 {
     text-align: right;
 }
 
+#instructions {
+    display: none;
+}
+
+#instructions > p {
+    text-align: left;
+    line-height: 1.5em;
+    color: #fefefe;
+    margin-top: 1.2em;
+    font-size: 1.2em;
+    margin-left: 1em;
+    margin-right: 1em;
+}

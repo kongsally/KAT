@@ -37,7 +37,6 @@ function logIn() {
 		    	success : function(results) {
 			     sessions = results;
 			     showDownloadLink();
-			     showResults();
 			    }
 		    });
 		    console.log(currentUser);
@@ -45,6 +44,7 @@ function logIn() {
 		    $("#password").val("");
 		    $("#email").val("");
 		    $("#form").css("display", "none");
+		    $("#instructions").css("display", "block");
 		} else {
 		    // show the signup or login page
 		}
@@ -56,15 +56,16 @@ function logIn() {
 }
 
 function showDownloadLink() {
-	$("#sessions").append("<br><a href='KATGame_Mac.zip' class='button' download>Download Mac OSX Desktop Game</a>");
-	$("#sessions").append("<a href='KATGame_Windows.zip' class='button' download>Download Windows Desktop Game</a><br>");
-
+	$("#instructions").append("<a href='KATGame_Mac.zip' class='button' download>Download Mac OSX Desktop Game</a>");
+	$("#instructions").append("<a href='KATGame_Windows.zip' class='button' download>Download Windows Desktop Game</a>");
+	$("#instructions").append("<a href='KATMobile.apk' class='button' download>Download Android App</a><br>");
+	$("#instructions").prepend("<a class='button' onclick='showResults();'>Check your results</a>");
 }
 
 function showResults() {
-	console.log(sessions);
+	$("#instructions").css("display", "none");
 	for (var i = 0; i < sessions.length; i++) {
-		$("#sessions").append("<div class = 'session one-half column' id = 'session" + 
+		$("#results").append("<div class = 'session one-half column' id = 'session" + 
 			i + "'></div>")
 		$("#session" + i).append("<h5> Level: " + 
 			sessions[i].attributes.level + "</h5>");
