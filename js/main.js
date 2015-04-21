@@ -56,10 +56,10 @@ function logIn() {
 }
 
 function showDownloadLink() {
-	$("#instructions").append("<a href='KATGame_Mac.zip' class='button' download>Mac OSX Desktop Game</a>");
-	$("#instructions").append("<a href='KATGame_Windows.zip' class='button' download>Windows Desktop Game</a>");
-	$("#instructions").append("<a href='KATMobile.apk' class='button' download>Android App</a>");
-	$("#instructions").prepend("<a class='button' onclick='showResults();'>Check your results</a>");
+	$("#instructions").prepend("<a href='KATGame_Mac.zip' class='button' download>Mac OSX Desktop Game</a>");
+	$("#instructions").prepend("<a href='KATGame_Windows.zip' class='button' download>Windows Desktop Game</a>");
+	$("#instructions").prepend("<a href='KATMobile.apk' class='button' download>Android App</a>");
+	$("#instructions").append("<a class='button' onclick='showResults();'>Check your results</a>");
 }
 
 function showResults() {
