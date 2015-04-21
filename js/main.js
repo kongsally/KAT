@@ -107,7 +107,7 @@ function showResults() {
 	      "' class='selectable ui-widget-content slice ui-selected'>Level " + parsedResults[i].level + "</li>");
 			showGraph(0);
 		} else {
-		$('#levelOptions').append("<li id='" + parsedResults[i].level +
+			$('#levelOptions').append("<li id='" + parsedResults[i].level +
 	      "' class='selectable ui-widget-content slice'>Level " + parsedResults[i].level + "</li>");
    		}
    	}
@@ -142,8 +142,8 @@ function showResults() {
 
 function showGraph(level) {
 	$("#results").empty();
-	$("#results").append("<h4> Blue for Characters Per Minute</h4>" + 
-						"<h4>Yellow for Words Per Minute </h4>");
+	$("#results").append("<h4> Blue for Words Per Minute</h4>" + 
+						"<h4> Red for Error Rate </h4>");
 	$("#results").append("<canvas id = 'resultsGraph' width = '"+
 							window.innerWidth * 0.6 + "' height = '" + 
 							window.innerHeight * 0.6 + "'></canvas>");
@@ -152,28 +152,38 @@ function showGraph(level) {
 	for(var i = 0; i < parsedResults[level].wordsPerMin.length; i++) {
 		ticks.push("Entry " + (i+1));
 	}
+
+	var errorRates = []
+	for(var i = 0; i < parsedResults[level].charactersPerMin.length; i++) {
+		if(parsedResults[level].charactersPerMin[i] == 0) {
+			errorRates.push(100);
+		} else {
+		errorRates.push(parseInt(parsedResults[level].totalMistake[i] / parsedResults[level].charactersPerMin[i] * 100));
+		}
+	}
+	
 	var data = {
 		labels: ticks,
 		datasets: [
 			{
-	            label: "Words Per Minute",
-	            fillColor: "rgba(220,220,180,0.2)",
-	            strokeColor: "rgba(220,220,180,1)",
-	            pointColor: "rgba(220,220,180,1)",
+	            label: "Error Rate",
+	            fillColor: "rgba(220,10,10,0.2)",
+	            strokeColor: "rgba(220,10,10,1)",
+	            pointColor: "rgba(220,10,10,1)",
 	            pointStrokeColor: "#fff",
 	            pointHighlightFill: "#fff",
-	            pointHighlightStroke: "rgba(220,220,180,1)",
-	            data: parsedResults[level].wordsPerMin
+	            pointHighlightStroke: "rgba(220,10,10,1)",
+	            data: errorRates
 	        },
-	        {
-	            label: "Characters Per Minute",
+			{
+	            label: "Words Per Minute",
 	            fillColor: "rgba(151,187,205,0.2)",
 	            strokeColor: "rgba(151,187,205,1)",
 	            pointColor: "rgba(151,187,205,1)",
 	            pointStrokeColor: "#fff",
 	            pointHighlightFill: "#fff",
 	            pointHighlightStroke: "rgba(151,187,205,1)",
-	            data: parsedResults[level].charactersPerMin
+	            data: parsedResults[level].wordsPerMin
 	        }
         ]
 	}
