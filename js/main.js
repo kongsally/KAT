@@ -143,22 +143,22 @@ function showResults() {
 function showGraph(level) {
 	$("#results").empty();
 	$("#results").append("<h4> Blue for Words Per Minute</h4>" + 
-						"<h4> Red for Error Rate </h4>");
+						"<h4> Red for Error Score (0 - 10) </h4>");
 	$("#results").append("<canvas id = 'resultsGraph' width = '"+
 							window.innerWidth * 0.6 + "' height = '" + 
 							window.innerHeight * 0.6 + "'></canvas>");
 	var ctx = document.getElementById("resultsGraph").getContext("2d");
 	var ticks = [];
 	for(var i = 0; i < parsedResults[level].wordsPerMin.length; i++) {
-		ticks.push("Entry " + (i+1));
+		ticks.push("Attempt " + (i+1));
 	}
 
 	var errorRates = []
 	for(var i = 0; i < parsedResults[level].charactersPerMin.length; i++) {
 		if(parsedResults[level].charactersPerMin[i] == 0) {
-			errorRates.push(100);
+			errorRates.push(10);
 		} else {
-		errorRates.push(parseInt(parsedResults[level].totalMistake[i] / parsedResults[level].charactersPerMin[i] * 100));
+		errorRates.push(parseInt(parsedResults[level].totalMistake[i] / parsedResults[level].charactersPerMin[i] * 10));
 		}
 	}
 	
