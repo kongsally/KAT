@@ -4,7 +4,7 @@ $(function() {
 });
 
 var sessions = [];
-
+var parsedResults = [];
 
 function signUp(){
 	var user = new Parse.User();
@@ -36,6 +36,7 @@ function logIn() {
 		    query.find({
 		    	success : function(results) {
 			     sessions = results;
+			     parseData(sessions);
 			     showDownloadLink();
 			    }
 		    });
@@ -53,6 +54,38 @@ function logIn() {
 	    // The login failed. Check error to see why.
 	  }
 	});
+}
+
+function parseData(sesh) {
+	for(var i = 0; i < sesh.length; i++) {
+
+		var found = false;
+		for(var j = 0; j < parsedResults.length; j++) {
+			if(parsedResults[j].level == sesh[i].attributes.level) {
+				parsedResults[j].wordsPerMin.push(sesh[i].attributes.wordsPerMin);
+				parsedResults[j].charactersPerMin.push(sesh[i].attributes.charactersPerMin)
+				parsedResults[j].totalMistake.push(sesh[i].attributes.totalMistake);
+				parsedResults[j].totalWordsTyped.push(sesh[i].attributes.totalWordsTyped);
+				parsedResults[j].finishTime.push(sesh[i].attributes.finishTime);
+				parsedResults[j].totalCharactersTyped.push(sesh[i].attributes.totalCharactersTyped);
+				found = true;
+				break;
+			}
+		}
+
+		if(!found) {
+			var levelEntry = {
+					"level" : sesh[i].attributes.level,
+					"wordsPerMin" : [sesh[i].attributes.wordsPerMin],
+					"charactersPerMin" : [sesh[i].attributes.charactersPerMin],
+					"totalMistake" : [sesh[i].attributes.totalMistake],
+					"totalWordsTyped" : [sesh[i].attributes.totalWordsTyped],
+					"finishTime" : [sesh[i].attributes.finishTime],
+					"totalCharactersTyped" : [sesh[i].attributes.totalCharactersTyped]
+			}
+			parsedResults.push(levelEntry);
+		}
+	}
 }
 
 function showDownloadLink() {
@@ -85,6 +118,54 @@ function showResults() {
 		$("#session" + i).append("<h5> Total characteres typed: " + 
 			sessions[i].attributes.totalCharactersTyped + "</h5>");
 	}
+
+	// showGraph();
+}
+
+function showGraph() {
+	$("#results").append("<h4> Blue for Characters Per Minute</h4>" + 
+						"<h4>Yellow for Words Per Minute </h4>");
+	$("#results").append("<canvas id = 'resultsGraph' width = '"+
+							window.innerWidth * 0.6 + "' height = '" + 
+							window.innerHeight * 0.6 + "'></canvas>");
+	var ctx = document.getElementById("resultsGraph").getContext("2d");
+	var ticks = [];
+	for(var i = 0; i < parsedResults[0].wordsPerMin.length; i++) {
+		ticks.push("Entry " + (i+1));
+	}
+	var data = {
+		labels: ticks,
+		datasets: [
+			{
+	            label: "Words Per Minute",
+	            fillColor: "rgba(220,220,180,0.2)",
+	            strokeColor: "rgba(220,220,180,1)",
+	            pointColor: "rgba(220,220,180,1)",
+	            pointStrokeColor: "#fff",
+	            pointHighlightFill: "#fff",
+	            pointHighlightStroke: "rgba(220,220,180,1)",
+	            data: parsedResults[0].wordsPerMin
+	        },
+	        {
+	            label: "Characters Per Minute",
+	            fillColor: "rgba(151,187,205,0.2)",
+	            strokeColor: "rgba(151,187,205,1)",
+	            pointColor: "rgba(151,187,205,1)",
+	            pointStrokeColor: "#fff",
+	            pointHighlightFill: "#fff",
+	            pointHighlightStroke: "rgba(151,187,205,1)",
+	            data: parsedResults[0].charactersPerMin
+	        }
+        ]
+	}
+
+	options = {
+		bezierCurve: false,
+		animation: true	
+	}
+
+	var newChart = new Chart(ctx).Line(data,options);
+
 }
 
 function backToInstructions() {
