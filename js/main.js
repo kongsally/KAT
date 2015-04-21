@@ -97,32 +97,51 @@ function showDownloadLink() {
 
 function showResults() {
 	$("#instructions").css("display", "none");
-	$("#results").css("display", "block");
+	$("#resultsWrapper").css("display", "block");
 	$("#results").empty();
-	$("#results").prepend("<a onclick='backToInstructions();' class='button' >Back To Instructions</a><br>");
-	for (var i = 0; i < sessions.length; i++) {
-		$("#results").append("<div class = 'session one-half column' id = 'session" + 
-			i + "'></div>")
-		$("#session" + i).append("<h5> Level: " + 
-			sessions[i].attributes.level + "</h5>");
-		$("#session" + i).append("<h5> Words/min: " + 
-			sessions[i].attributes.wordsPerMin + "</h5>");
-		$("#session" + i).append("<h5> Characters/min: " + 
-			sessions[i].attributes.charactersPerMin + "</h5>");
-		$("#session" + i).append("<h5> Time to finish level: " + 
-			sessions[i].attributes.finishTime + "</h5>");
-		$("#session" + i).append("<h5> Number of mistakes: " + 
-			sessions[i].attributes.totalMistake + "</h5>");
-		$("#session" + i).append("<h5> Total words typed: " + 
-			sessions[i].attributes.totalWordsTyped + "</h5>");
-		$("#session" + i).append("<h5> Total characteres typed: " + 
-			sessions[i].attributes.totalCharactersTyped + "</h5>");
-	}
+	$("#levelOptions").empty();
 
-	// showGraph();
+	for(var i = 0; i < parsedResults.length; i++) {
+		if( i == 0) {
+			$('#levelOptions').append("<li id='" + parsedResults[i].level +
+	      "' class='selectable ui-widget-content slice ui-selected'>Level " + parsedResults[i].level + "</li>");
+			showGraph(0);
+		} else {
+		$('#levelOptions').append("<li id='" + parsedResults[i].level +
+	      "' class='selectable ui-widget-content slice'>Level " + parsedResults[i].level + "</li>");
+   		}
+   	}
+
+    $("#levelOptions").selectable({stop: function() {
+      $(".ui-selected", this ).each(function() {
+        //show graph for this specific level
+        showGraph($('.ui-selected').attr('id'));
+    	});
+ 	}});
+
+	// for (var i = 0; i < sessions.length; i++) {
+	// 	$("#results").append("<div class = 'session one-half column' id = 'session" + 
+	// 		i + "'></div>")
+	// 	$("#session" + i).append("<h5> Level: " + 
+	// 		sessions[i].attributes.level + "</h5>");
+	// 	$("#session" + i).append("<h5> Words/min: " + 
+	// 		sessions[i].attributes.wordsPerMin + "</h5>");
+	// 	$("#session" + i).append("<h5> Characters/min: " + 
+	// 		sessions[i].attributes.charactersPerMin + "</h5>");
+	// 	$("#session" + i).append("<h5> Time to finish level: " + 
+	// 		sessions[i].attributes.finishTime + "</h5>");
+	// 	$("#session" + i).append("<h5> Number of mistakes: " + 
+	// 		sessions[i].attributes.totalMistake + "</h5>");
+	// 	$("#session" + i).append("<h5> Total words typed: " + 
+	// 		sessions[i].attributes.totalWordsTyped + "</h5>");
+	// 	$("#session" + i).append("<h5> Total characteres typed: " + 
+	// 		sessions[i].attributes.totalCharactersTyped + "</h5>");
+	// }
+
 }
 
-function showGraph() {
+function showGraph(level) {
+	$("#results").empty();
 	$("#results").append("<h4> Blue for Characters Per Minute</h4>" + 
 						"<h4>Yellow for Words Per Minute </h4>");
 	$("#results").append("<canvas id = 'resultsGraph' width = '"+
@@ -130,7 +149,7 @@ function showGraph() {
 							window.innerHeight * 0.6 + "'></canvas>");
 	var ctx = document.getElementById("resultsGraph").getContext("2d");
 	var ticks = [];
-	for(var i = 0; i < parsedResults[0].wordsPerMin.length; i++) {
+	for(var i = 0; i < parsedResults[level].wordsPerMin.length; i++) {
 		ticks.push("Entry " + (i+1));
 	}
 	var data = {
@@ -144,7 +163,7 @@ function showGraph() {
 	            pointStrokeColor: "#fff",
 	            pointHighlightFill: "#fff",
 	            pointHighlightStroke: "rgba(220,220,180,1)",
-	            data: parsedResults[0].wordsPerMin
+	            data: parsedResults[level].wordsPerMin
 	        },
 	        {
 	            label: "Characters Per Minute",
@@ -154,14 +173,15 @@ function showGraph() {
 	            pointStrokeColor: "#fff",
 	            pointHighlightFill: "#fff",
 	            pointHighlightStroke: "rgba(151,187,205,1)",
-	            data: parsedResults[0].charactersPerMin
+	            data: parsedResults[level].charactersPerMin
 	        }
         ]
 	}
 
 	options = {
 		bezierCurve: false,
-		animation: true	
+		animation: true,
+		scaleFontColor: "#fefefe"
 	}
 
 	var newChart = new Chart(ctx).Line(data,options);
@@ -169,8 +189,10 @@ function showGraph() {
 }
 
 function backToInstructions() {
-	$("#results").css("display", "none");
+	$("#resultsWrapper").css("display", "none");
 	$("#instructions").css("display", "block");
 }
+
+
 
 
