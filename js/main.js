@@ -39,7 +39,7 @@ function logIn() {
 			     showDownloadLink();
 			    }
 		    });
-		    console.log(currentUser);
+		   
 		    $("#userName").val("");
 		    $("#password").val("");
 		    $("#email").val("");
@@ -64,6 +64,9 @@ function showDownloadLink() {
 
 function showResults() {
 	$("#instructions").css("display", "none");
+	$("#results").css("display", "block");
+	$("#results").empty();
+	$("#results").prepend("<a onclick='backToInstructions();' class='button' >Back To Instructions</a><br>");
 	for (var i = 0; i < sessions.length; i++) {
 		$("#results").append("<div class = 'session one-half column' id = 'session" + 
 			i + "'></div>")
@@ -82,6 +85,11 @@ function showResults() {
 		$("#session" + i).append("<h5> Total characteres typed: " + 
 			sessions[i].attributes.totalCharactersTyped + "</h5>");
 	}
+}
+
+function backToInstructions() {
+	$("#results").css("display", "none");
+	$("#instructions").css("display", "block");
 }
 
 
