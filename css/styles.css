@@ -153,8 +153,8 @@ ol{
     font-size: 1.2em;
     padding-left: 2em;
     padding-right: 2em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
     border-radius: 2px;
     cursor: pointer;
 }
@@ -186,4 +186,8 @@ img {
     margin: 1em;
     border: solid 2px #fefefe;
     border-radius: 2px;
+}
+
+#results {
+    margin-bottom: 2em;
 }
