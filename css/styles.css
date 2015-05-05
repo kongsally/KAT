@@ -173,3 +173,17 @@ ol{
     margin-bottom: 2em;
     text-align: left;
 }
+
+#levelOptions > li {
+    display: inline-block;
+}
+
+#imgSpan {
+    text-align: center;
+}
+img {
+    width: 40%;
+    margin: 1em;
+    border: solid 2px #fefefe;
+    border-radius: 2px;
+}

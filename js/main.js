@@ -95,11 +95,21 @@ function showDownloadLink() {
 	$("#instructions").append("<a class='button' onclick='showResults();'>Check your results</a>");
 }
 
+function compare(a,b) {
+  if (a.level < b.level)
+     return -1;
+  if (a.level > b.level)
+    return 1;
+  return 0;
+}
+
 function showResults() {
 	$("#instructions").css("display", "none");
 	$("#resultsWrapper").css("display", "block");
 	$("#results").empty();
 	$("#levelOptions").empty();
+
+	parsedResults.sort(compare);
 
 	for(var i = 0; i < parsedResults.length; i++) {
 		if( i == 0) {
